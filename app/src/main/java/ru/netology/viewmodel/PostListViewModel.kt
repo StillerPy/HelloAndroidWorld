@@ -6,9 +6,13 @@ import ru.netology.dto.Post
 import ru.netology.repository.PostRepository
 import ru.netology.repository.PostRepositoryInMemory
 
-class PostViewModel: ViewModel() {
+class PostListViewModel: ViewModel() {
     private val repository: PostRepository = PostRepositoryInMemory()
-    val data: LiveData<Post> = repository.get()
-    fun like() = repository.like()
-    fun share() = repository.share()
+    val data: LiveData<List<Post>> = repository.getAll()
+    fun likeById(id: Long) {
+        repository.likeById(id)
+    }
+    fun shareById(id: Long) {
+        repository.shareById(id)
+    }
 }

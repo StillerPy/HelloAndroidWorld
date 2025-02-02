@@ -6,9 +6,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import ru.netology.R
+import ru.netology.adapter.PostAdapter
 import ru.netology.databinding.ActivityMainBinding
-import ru.netology.viewmodel.PostViewModel
+import ru.netology.viewmodel.PostListViewModel
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,31 +16,12 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val viewModel: PostViewModel by viewModels()
-        applyInset(binding.main)
-        viewModel.data.observe(this) { post ->
-            val uiModel = PostUiModel.fromPost(post)
-            with(binding) {
-                likeButton.setImageResource(
-                    if (uiModel.likedByMe) {
-                        R.drawable.ic_liked
-                    } else {
-                        R.drawable.ic_like
-                    }
-                )
-                author.text = uiModel.author
-                published.text = uiModel.published
-                content.text = uiModel.content
-                likes.text = uiModel.likesFormatted
-                shared.text = uiModel.sharedFormatted
-                views.text = uiModel.viewsFormatted
-            }
-        }
-        binding.likeButton.setOnClickListener {
-            viewModel.like()
-        }
-        binding.sharedIcon.setOnClickListener {
-            viewModel.share()
+        val viewModel: PostListViewModel by viewModels()
+        applyInset(binding.root)
+        val adapter = PostAdapter({viewModel.likeById(it.id)}, {viewModel.shareById(it.id)})
+        binding.main.adapter = adapter
+        viewModel.data.observe(this) { posts ->
+           adapter.submitList(posts)
         }
     }
     private fun applyInset(main: View) {
