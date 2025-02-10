@@ -27,13 +27,13 @@
         android:layout_marginStart="@dimen/regular_margin"
         android:ellipsize="end"
         android:singleLine="true"
-        app:layout_constraintEnd_toStartOf="@id/menu"
+        app:layout_constraintEnd_toStartOf="@id/menu_button"
         app:layout_constraintStart_toEndOf="@+id/avatar"
         app:layout_constraintTop_toTopOf="@+id/avatar"
         tools:text="@sample/posts.json/data/author" />
 
     <ImageView
-        android:id="@+id/menu"
+        android:id="@+id/menu_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/baseline_more_vert_24"

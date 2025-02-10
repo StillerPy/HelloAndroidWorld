@@ -6,4 +6,10 @@
     <string name="likes_icon">Likes icon</string>
     <string name="shared_icon">Shared icon</string>
     <string name="views_icon">Views icon</string>
+    <string name="menu_remove">Remove</string>
+    <string name="menu_edit">Edit</string>
+    <string name="input_post_content_hint">Input your text here</string>
+    <string name="error_empty_content">Empty post content!</string>
+    <string name="me_author_name">Me</string>
+    <string name="published_now">Now</string>
 </resources>

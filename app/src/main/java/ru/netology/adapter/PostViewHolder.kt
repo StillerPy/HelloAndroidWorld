@@ -1,14 +1,15 @@
 package ru.netology.adapter
 
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
+import ru.netology.R
 import ru.netology.databinding.PostCardBinding
 import ru.netology.dto.Post
 import ru.netology.view.PostUiModel
 
 class PostViewHolder(
     private val binding: PostCardBinding,
-    private val onLikeClick: (Post) -> Unit,
-    private val onShareClick: (Post) -> Unit
+    private val listener: OnInteractionListener
 ): RecyclerView.ViewHolder(binding.root) {
     fun bind(post: Post) {
         val postModel = PostUiModel.fromPost(post)
@@ -26,11 +27,29 @@ class PostViewHolder(
             likes.text = postModel.likesFormatted
             shared.text = postModel.sharedFormatted
             views.text = postModel.viewsFormatted
+            menuButton.setOnClickListener {
+                PopupMenu(it.context, it).apply {
+                    inflate(R.menu.post_menu)
+                    setOnMenuItemClickListener { menuItem ->
+                        when (menuItem.itemId) {
+                            R.id.edit -> {
+                                listener.onEdit(post)
+                                true
+                            }
+                            R.id.remove -> {
+                                listener.onRemove(post)
+                                true
+                            }
+                            else -> false
+                        }
+                    }
+                }.show()
+            }
             likeButton.setOnClickListener {
-                onLikeClick(post)
+                listener.onLike(post)
             }
             shareButton.setOnClickListener {
-                onShareClick(post)
+                listener.onShare(post)
             }
         }
     }
