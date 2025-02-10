@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.transition.Visibility
 import ru.netology.R
 import ru.netology.adapter.OnInteractionListener
 import ru.netology.adapter.PostAdapter
@@ -43,9 +44,6 @@ class MainActivity : AppCompatActivity() {
         binding.main.adapter = adapter
         viewModel.data.observe(this) { posts ->
             adapter.submitList(posts)
-//            {
-//                binding.main.smoothScrollToPosition(0)
-//            }
         }
         viewModel.edited.observe(this) { editedPost ->
             if (editedPost.id == 0L) {
@@ -53,6 +51,8 @@ class MainActivity : AppCompatActivity() {
             } else {
                 binding.postContentInput.setText(editedPost.content)
                 binding.postContentInput.focusAndShowKeyboard()
+                binding.editPostGroup.visibility = View.VISIBLE
+                binding.originalPostText.text = editedPost.content
             }
         }
         binding.saveButton.setOnClickListener {
@@ -64,8 +64,15 @@ class MainActivity : AppCompatActivity() {
             viewModel.saveContent(input)
             binding.postContentInput.clearFocus()
             binding.postContentInput.setText("")
+            binding.editPostGroup.visibility = View.GONE
             AndroidUtils.hideKeyboard(it)
             binding.main.smoothScrollToPosition(0)
+        }
+        binding.cancelEditPostButton.setOnClickListener {
+            binding.postContentInput.clearFocus()
+            binding.postContentInput.setText("")
+            binding.editPostGroup.visibility = View.GONE
+            AndroidUtils.hideKeyboard(it)
         }
     }
 

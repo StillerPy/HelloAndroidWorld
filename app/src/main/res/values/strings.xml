@@ -13,4 +13,6 @@
     <string name="error_empty_content">Empty post content!</string>
     <string name="me_author_name">Me</string>
     <string name="published_now">Now</string>
+    <string name="edit_post_icon">Edit post icon</string>
+    <string name="cancel_edit_post_icon">Cancel edit post button</string>
 </resources>
