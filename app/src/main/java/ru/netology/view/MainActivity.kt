@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             }
             viewModel.saveContent(input)
             binding.postContentInput.clearFocus()
-            binding.postContentInput.text.clear()
+            binding.postContentInput.setText("")
             AndroidUtils.hideKeyboard(it)
             binding.main.smoothScrollToPosition(0)
         }
