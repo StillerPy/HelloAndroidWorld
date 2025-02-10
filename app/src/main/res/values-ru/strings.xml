@@ -6,6 +6,7 @@
     <string name="menu_button">Кнопка меню</string>
     <string name="likes_icon">Иконка лайков</string>
     <string name="shared_icon">Иконка "поделились"</string>
+    <string name="save_icon">Кнопка "сохранить"</string>
     <string name="views_icon">Иконка "просмотры"</string>
     <string name="menu_edit">Изменить</string>
     <string name="menu_remove">Удалить</string>

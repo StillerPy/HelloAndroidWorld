@@ -5,6 +5,7 @@
     <string name="menu_button">Menu button</string>
     <string name="likes_icon">Likes icon</string>
     <string name="shared_icon">Shared icon</string>
+    <string name="save_icon">Save icon</string>
     <string name="views_icon">Views icon</string>
     <string name="menu_remove">Remove</string>
     <string name="menu_edit">Edit</string>
