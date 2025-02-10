@@ -16,9 +16,9 @@ class PostViewHolder(
         with(binding) {
             likeButton.setImageResource(
                 if (postModel.likedByMe) {
-                    ru.netology.R.drawable.ic_liked
+                    R.drawable.ic_liked
                 } else {
-                    ru.netology.R.drawable.ic_like
+                    R.drawable.ic_like
                 }
             )
             author.text = postModel.author
