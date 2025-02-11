@@ -79,11 +79,14 @@ class MainActivity : AppCompatActivity() {
     private fun applyInset(main: View) {
         ViewCompat.setOnApplyWindowInsetsListener(main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            // Для клавиатуры:
+            val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
+            val isImeVisible = insets.isVisible(WindowInsetsCompat.Type.ime())
             v.setPadding(
-                v.paddingLeft + systemBars.left,
-                v.paddingTop + systemBars.top,
-                v.paddingRight + systemBars.right,
-                v.paddingBottom + systemBars.bottom
+                v.paddingLeft,
+                systemBars.top,
+                v.paddingRight,
+                if (isImeVisible) imeInsets.bottom else systemBars.bottom
             )
             insets
         }
