@@ -111,7 +111,7 @@ class PostRepositoryInMemory : PostRepository {
         return post.copy(
             sharedByMe = true,
             shared = post.shared + 1,
-            content = post.content + "\nShared!"
+            //content = post.content + "\nShared!"
         )
     }
 }

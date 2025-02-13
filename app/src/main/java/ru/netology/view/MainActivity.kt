@@ -73,6 +73,7 @@ class MainActivity : AppCompatActivity() {
             binding.postContentInput.setText("")
             binding.editPostGroup.visibility = View.GONE
             AndroidUtils.hideKeyboard(it)
+            viewModel.cancelEditing()
         }
     }
 
