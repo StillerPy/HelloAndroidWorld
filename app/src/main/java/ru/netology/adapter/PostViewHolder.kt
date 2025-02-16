@@ -14,13 +14,14 @@ class PostViewHolder(
     fun bind(post: Post) {
         val postModel = PostUiModel.fromPost(post)
         with(binding) {
-            likeButton.setImageResource(
-                if (postModel.likedByMe) {
-                    R.drawable.ic_liked
-                } else {
-                    R.drawable.ic_like
-                }
-            )
+//            likeButton.setImageResource(
+//                if (postModel.likedByMe) {
+//                    R.drawable.ic_liked
+//                } else {
+//                    R.drawable.ic_like
+//                }
+//            )
+            binding.likeButton.isChecked = post.likedByMe
             author.text = postModel.author
             published.text = postModel.published
             content.text = postModel.content

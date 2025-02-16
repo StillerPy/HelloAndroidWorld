@@ -83,15 +83,19 @@
         app:constraint_referenced_ids="content"
         />
 
-    <ImageView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/like_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/regular_margin"
         android:contentDescription="@string/likes_icon"
+        android:checkable="true"
+        android:icon="@drawable/like_selector"
+        app:iconTint="@color/like_color_selector"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/footer_barrier"
-        app:srcCompat="@drawable/ic_like" />
+        style="@style/Widget.AppTheme.LikeButton"
+        />
 
     <TextView
         android:id="@+id/likes"

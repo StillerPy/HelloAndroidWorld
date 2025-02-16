@@ -6,4 +6,7 @@
     </style>
 
     <style name="Theme.HelloWorld" parent="Base.Theme.HelloWorld" />
+
+
+
 </resources>
