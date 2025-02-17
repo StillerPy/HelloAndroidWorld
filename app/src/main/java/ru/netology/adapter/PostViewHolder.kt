@@ -25,9 +25,9 @@ class PostViewHolder(
             author.text = postModel.author
             published.text = postModel.published
             content.text = postModel.content
-            likes.text = postModel.likesFormatted
-            shared.text = postModel.sharedFormatted
-            views.text = postModel.viewsFormatted
+            likeButton.text = postModel.likesFormatted
+            shareButton.text = postModel.sharedFormatted
+            viewButton.text = postModel.viewsFormatted
             menuButton.setOnClickListener {
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.post_menu)
