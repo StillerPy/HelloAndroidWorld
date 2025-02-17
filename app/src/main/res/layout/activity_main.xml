@@ -12,7 +12,7 @@
         app:layout_constraintBaseline_toTopOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/barrier"
-        tools:context=".view.MainActivity" />
+        tools:context=".activity.MainActivity" />
 
     <EditText
         android:inputType="text"

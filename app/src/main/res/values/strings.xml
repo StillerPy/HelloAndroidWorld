@@ -15,4 +15,5 @@
     <string name="published_now">Now</string>
     <string name="edit_post_icon">Edit post icon</string>
     <string name="cancel_edit_post_icon">Cancel edit post button</string>
+    <string name="chooser_share_post">Share post:</string>
 </resources>

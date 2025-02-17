@@ -11,5 +11,9 @@
         parent="Widget.MaterialComponents.Button.TextButton.Icon">
         <item name="iconTint">@color/like_color_selector</item>
     </style>
+    <style name="Widget.AppTheme.MenuButton"
+        parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="iconTint">@color/like_color_selector</item>
+    </style>
 
 </resources>

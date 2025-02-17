@@ -14,6 +14,7 @@
     <string name="error_empty_content">Пустой текст поста!</string>
     <string name="me_author_name">Я</string>
     <string name="published_now">Только что</string>
-    <string name="edit_post_icon">Edit post icon</string>
-    <string name="cancel_edit_post_icon">Cancel edit post button</string>
+    <string name="edit_post_icon">Иконка изменения поста</string>
+    <string name="cancel_edit_post_icon">Кнопка отмены изменения поста</string>
+    <string name="chooser_share_post">Поделиться постом:</string>
 </resources>
