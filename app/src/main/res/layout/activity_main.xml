@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,48 +9,21 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         app:layout_constraintBaseline_toTopOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/barrier"
         tools:context=".activity.MainActivity" />
 
-    <EditText
-        android:inputType="text"
-        android:id="@+id/post_content_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:hint="@string/input_post_content_hint"
-        android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
-    <ImageButton
-        android:id="@+id/save_button"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_post_button"
+        android:contentDescription="hrjdjytj"
+        app:srcCompat="@drawable/baseline_control_point_24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/save_icon"
-        android:src="@drawable/baseline_send_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@android:color/transparent"
         />
-
-    <ImageView
-        android:id="@+id/edit_post_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/edit_post_icon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/lower_barrier"
-        app:srcCompat="@drawable/baseline_chevron_right_24" />
-
-    <TextView
-        android:id="@+id/original_post_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/edit_post_icon"
-        app:layout_constraintBottom_toTopOf="@id/lower_barrier" />
 
     <ImageView
         android:id="@+id/cancel_edit_post_button"
