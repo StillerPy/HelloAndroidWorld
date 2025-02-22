@@ -27,7 +27,7 @@ class NewPostActivity : AppCompatActivity() {
                 setResult(RESULT_CANCELED)
             } else {
                 setResult(RESULT_OK, Intent().apply {
-                    putExtra(Intent.EXTRA_TEXT, text)
+                    putExtra("content", text)
                 })
             }
             finish()
@@ -35,37 +35,14 @@ class NewPostActivity : AppCompatActivity() {
     }
 }
 
-object NewPostContract: ActivityResultContract<Post?, Post?>() {
-    override fun createIntent(context: Context, input: Post?): Intent {
+object NewPostContract: ActivityResultContract<String?, String?>() {
+    override fun createIntent(context: Context, input: String?): Intent {
         return Intent(context, NewPostActivity::class.java).apply {
-            if (input != null) {
-                putExtra("id", input.id)
-                putExtra("author", input.author)
-                putExtra("published", input.published)
-                putExtra("content", input.content)
-                putExtra("likes", input.likes)
-                putExtra("shared", input.shared)
-                putExtra("views", input.views)
-                putExtra("likedByMe", input.likedByMe)
-                putExtra("sharedByMe", input.sharedByMe)
-            }
+            putExtra("content", input)
         }
     }
 
-    override fun parseResult(resultCode: Int, intent: Intent?): Post? {
-        if (intent == null) {
-            return null
-        }
-        return Post(
-            intent.getLongExtra("id", 0),
-            intent.getStringExtra("author") ?: "",
-            intent.getStringExtra("published") ?: "",
-            intent.getStringExtra("content") ?: "11111",
-            intent.getIntExtra("likes", 0),
-            intent.getIntExtra("shared", 0),
-            intent.getIntExtra("views", 0),
-            intent.getBooleanExtra("likedByMe", false),
-            intent.getBooleanExtra("sharedByMe", false)
-        )
+    override fun parseResult(resultCode: Int, intent: Intent?): String? {
+        return intent?.getStringExtra("content")
     }
 }

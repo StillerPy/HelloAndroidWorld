@@ -28,9 +28,9 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val viewModel: PostListViewModel by viewModels()
-        val newPostLauncher = registerForActivityResult(NewPostContract) { post ->
-            post ?: return@registerForActivityResult
-            viewModel.saveContent(post.content)
+        val newPostLauncher = registerForActivityResult(NewPostContract) { content ->
+            content ?: return@registerForActivityResult
+            viewModel.saveContent(content)
         }
         applyInset(binding.root)
         val adapter = PostAdapter(object: OnInteractionListener {
@@ -48,7 +48,8 @@ class MainActivity : AppCompatActivity() {
                 startActivity(chooser)
             }
             override fun onEdit(post: Post) {
-                newPostLauncher.launch(post)
+                viewModel.edited.value = post
+                newPostLauncher.launch(post.content)
             }
             override fun onRemove(post: Post) {
                 viewModel.removeById(post.id)

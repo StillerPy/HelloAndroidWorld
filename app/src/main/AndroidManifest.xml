@@ -13,10 +13,6 @@
         android:theme="@style/Theme.HelloWorld"
         tools:targetApi="31">
         <activity
-            android:name=".activity.EditPostActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name=".activity.NewPostActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />

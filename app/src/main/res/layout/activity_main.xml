@@ -39,15 +39,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="edit_post_icon, original_post_text, cancel_edit_post_button"
         />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/edit_post_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:constraint_referenced_ids="edit_post_icon, original_post_text, cancel_edit_post_button" />
+        android:visibility="gone" />
 
 
     <androidx.constraintlayout.widget.Barrier
@@ -55,6 +53,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="save_button, post_content_input"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
