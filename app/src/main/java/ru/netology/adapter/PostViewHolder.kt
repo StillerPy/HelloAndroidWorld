@@ -25,6 +25,7 @@ class PostViewHolder(
             if (post.videoUrl == null) {
                 binding.placeholderImage.visibility = View.GONE
             } else {
+                binding.placeholderImage.visibility = View.VISIBLE
                 binding.placeholderImage.setOnClickListener {
                     listener.onVideoClick(post)
                 }

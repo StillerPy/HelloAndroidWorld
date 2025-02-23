@@ -30,7 +30,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         val viewModel: PostListViewModel by viewModels()
         val newPostLauncher = registerForActivityResult(NewPostContract) { content ->
-            content ?: return@registerForActivityResult
+            if (content == null) {
+                viewModel.edit(emptyPost)
+                return@registerForActivityResult
+            }
             viewModel.saveContent(content)
         }
         applyInset(binding.root)
@@ -49,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(chooser)
             }
             override fun onEdit(post: Post) {
-                viewModel.edited.value = post
+                viewModel.edit(post)
                 newPostLauncher.launch(post.content)
             }
             override fun onRemove(post: Post) {
