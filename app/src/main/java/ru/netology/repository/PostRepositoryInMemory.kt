@@ -113,8 +113,7 @@ class PostRepositoryInMemory : PostRepository {
     private fun sharePost(post: Post): Post {
         return post.copy(
             sharedByMe = true,
-            shared = post.shared + 1,
-            //content = post.content + "\nShared!"
+            shared = post.shared + 1
         )
     }
 }
