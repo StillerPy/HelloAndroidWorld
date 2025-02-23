@@ -3,6 +3,7 @@ package ru.netology.activity
 import android.content.Intent
 import android.content.Intent.ACTION_SEND
 import android.content.Intent.EXTRA_TEXT
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -53,6 +54,13 @@ class MainActivity : AppCompatActivity() {
             }
             override fun onRemove(post: Post) {
                 viewModel.removeById(post.id)
+            }
+
+            override fun onVideoClick(post: Post) {
+                val videoIntent = Intent(Intent.ACTION_VIEW).apply {
+                    setData(Uri.parse(post.videoUrl))
+                }
+                startActivity(videoIntent)
             }
         })
         binding.main.adapter = adapter

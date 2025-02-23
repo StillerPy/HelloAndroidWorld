@@ -1,5 +1,6 @@
 package ru.netology.adapter
 
+import android.view.View
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.R
@@ -21,6 +22,13 @@ class PostViewHolder(
             likeButton.text = postModel.likesFormatted
             shareButton.text = postModel.sharedFormatted
             viewButton.text = postModel.viewsFormatted
+            if (post.videoUrl == null) {
+                binding.placeholderImage.visibility = View.GONE
+            } else {
+                binding.placeholderImage.setOnClickListener {
+                    listener.onVideoClick(post)
+                }
+            }
             menuButton.setOnClickListener {
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.post_menu)

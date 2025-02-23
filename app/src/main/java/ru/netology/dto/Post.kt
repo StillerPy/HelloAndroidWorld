@@ -5,6 +5,7 @@ data class Post(
     val author: String = "=== Post author ===",
     val published: String = "=== Publishing date ===",
     val content: String = "=== Content text ===",
+    val videoUrl: String? = null,
     val likes: Int = 1099,
     val shared: Int = 999,
     val views: Int = 12345,

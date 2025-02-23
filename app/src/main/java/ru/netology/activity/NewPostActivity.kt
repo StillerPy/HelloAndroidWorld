@@ -21,6 +21,9 @@ class NewPostActivity : AppCompatActivity() {
         setContentView(binding.root)
         val content = intent.getStringExtra("content")
         binding.postContentInput.setText(content)
+        binding.undoButton.setOnClickListener {
+            binding.postContentInput.setText(content)
+        }
         binding.okButton.setOnClickListener {
             val text = binding.postContentInput.text.toString()
             if (text.isBlank()) {
