@@ -10,7 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import ru.netology.R
 import ru.netology.databinding.ActivityIntentHandlerBinding
 
-class IntentHandlerActivity : AppCompatActivity() {
+class AppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

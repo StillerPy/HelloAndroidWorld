@@ -5,37 +5,35 @@ import android.content.Intent.ACTION_SEND
 import android.content.Intent.EXTRA_TEXT
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
+import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import ru.netology.R
 import ru.netology.adapter.OnInteractionListener
 import ru.netology.adapter.PostAdapter
-import ru.netology.databinding.ActivityMainBinding
+import ru.netology.databinding.FragmentFeedBinding
 import ru.netology.dto.Post
-import ru.netology.util.AndroidUtils
-import ru.netology.util.focusAndShowKeyboard
 import ru.netology.viewmodel.PostListViewModel
 import ru.netology.viewmodel.emptyPost
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        val viewModel: PostListViewModel by viewModels()
-        val newPostLauncher = registerForActivityResult(NewPostContract) { content ->
-            if (content == null) {
-                viewModel.edit(emptyPost)
-                return@registerForActivityResult
-            }
-            viewModel.saveContent(content)
-        }
+class FeedFragment : Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        //enableEdgeToEdge()
+        val binding = FragmentFeedBinding.inflate(layoutInflater, container, false)
+        //setContentView(binding.root)
+        val viewModel: PostListViewModel by activityViewModels()
+
         applyInset(binding.root)
         val adapter = PostAdapter(object: OnInteractionListener {
             override fun onLike(post: Post) {
@@ -53,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             }
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
-                newPostLauncher.launch(post.content)
+                //newPostLauncher.launch(post.content)
             }
             override fun onRemove(post: Post) {
                 viewModel.removeById(post.id)
@@ -67,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
         binding.main.adapter = adapter
-        viewModel.data.observe(this) { posts ->
+        viewModel.data.observe(viewLifecycleOwner) { posts ->
             val isNewPost = (posts.size > adapter.currentList.size)
             adapter.submitList(posts) {
                 if (isNewPost) {
@@ -77,38 +75,13 @@ class MainActivity : AppCompatActivity() {
 
         }
         binding.addPostButton.setOnClickListener {
-            newPostLauncher.launch(null)
+            findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
         }
-//        viewModel.edited.observe(this) { editedPost ->
-//            if (editedPost.id == 0L) {
-//                return@observe
-//            } else {
-//                binding.postContentInput.setText(editedPost.content)
-//                binding.postContentInput.focusAndShowKeyboard()
-//                binding.editPostGroup.visibility = View.VISIBLE
-//                binding.originalPostText.text = editedPost.content
-//            }
-//        }
-//        binding.saveButton.setOnClickListener {
-//            val input = binding.postContentInput.text.toString()
-//            if (input.isNullOrBlank()) {
-//                Toast.makeText(this, R.string.error_empty_content, Toast.LENGTH_LONG).show()
-//                return@setOnClickListener
-//            }
-//            viewModel.saveContent(input)
-//            binding.postContentInput.clearFocus()
-//            binding.postContentInput.setText("")
-//            binding.editPostGroup.visibility = View.GONE
-//            AndroidUtils.hideKeyboard(it)
-//            binding.main.smoothScrollToPosition(0)
-//        }
-//        binding.cancelEditPostButton.setOnClickListener {
-//            binding.postContentInput.clearFocus()
-//            binding.postContentInput.setText("")
-//            binding.editPostGroup.visibility = View.GONE
-//            AndroidUtils.hideKeyboard(it)
-//            viewModel.cancelEditing()
-//        }
+        return binding.root
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
     }
 
     private fun applyInset(main: View) {
