@@ -87,7 +87,6 @@ class FeedFragment : Fragment() {
         binding.addPostButton.setOnClickListener {
             findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
         }
-        viewModel.addPost(getLongPost())
         return binding.root
     }
     override fun onCreate(savedInstanceState: Bundle?) {

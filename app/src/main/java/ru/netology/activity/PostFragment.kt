@@ -12,10 +12,10 @@ class PostFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val binding = FragmentPostBinding.inflate(layoutInflater, container, false)
-        binding.postCard.content.text = "Hello"
+        binding.postCard.content.text = arguments?.getString("post_content") ?: "Error"
         return binding.root
     }
 }
