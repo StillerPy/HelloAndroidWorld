@@ -46,7 +46,7 @@ class PostListViewModel(application: Application): AndroidViewModel(application)
         }
         edited.value = emptyPost
     }
-    fun cancelEditing() {
-        edited.value = emptyPost
+    fun addPost(post: Post) {
+        repository.save(post)
     }
 }

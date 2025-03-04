@@ -22,6 +22,9 @@ class PostViewHolder(
             likeButton.text = postModel.likesFormatted
             shareButton.text = postModel.sharedFormatted
             viewButton.text = postModel.viewsFormatted
+            binding.root.setOnClickListener {
+                listener.onPostClick(post)
+            }
             if (post.videoUrl == null) {
                 binding.placeholderImage.visibility = View.GONE
             } else {

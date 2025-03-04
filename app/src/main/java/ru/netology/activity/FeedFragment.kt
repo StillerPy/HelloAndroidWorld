@@ -20,6 +20,7 @@ import ru.netology.adapter.OnInteractionListener
 import ru.netology.adapter.PostAdapter
 import ru.netology.databinding.FragmentFeedBinding
 import ru.netology.dto.Post
+import ru.netology.dto.getLongPost
 import ru.netology.viewmodel.PostListViewModel
 import ru.netology.viewmodel.emptyPost
 
@@ -29,12 +30,10 @@ class FeedFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        //enableEdgeToEdge()
         val binding = FragmentFeedBinding.inflate(layoutInflater, container, false)
-        //setContentView(binding.root)
         val viewModel: PostListViewModel by activityViewModels()
 
-        applyInset(binding.root)
+        //applyInset(binding.root)
         val adapter = PostAdapter(object: OnInteractionListener {
             override fun onLike(post: Post) {
                 viewModel.likeById(post.id)
@@ -51,7 +50,10 @@ class FeedFragment : Fragment() {
             }
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
-                //newPostLauncher.launch(post.content)
+                findNavController().navigate(R.id.action_feedFragment_to_newPostFragment,
+                    Bundle().apply {
+                        putString("post_content", post.content)
+                    })
             }
             override fun onRemove(post: Post) {
                 viewModel.removeById(post.id)
@@ -62,6 +64,14 @@ class FeedFragment : Fragment() {
                     setData(Uri.parse(post.videoUrl))
                 }
                 startActivity(videoIntent)
+            }
+
+            override fun onPostClick(post: Post) {
+                findNavController().navigate(R.id.action_feedFragment_to_postFragment,
+                    Bundle().apply {
+                        putString("post_content", post.content)
+                    })
+                println(post)
             }
         })
         binding.main.adapter = adapter
@@ -77,6 +87,7 @@ class FeedFragment : Fragment() {
         binding.addPostButton.setOnClickListener {
             findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
         }
+        viewModel.addPost(getLongPost())
         return binding.root
     }
     override fun onCreate(savedInstanceState: Bundle?) {

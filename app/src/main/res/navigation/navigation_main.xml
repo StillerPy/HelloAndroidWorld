@@ -16,6 +16,12 @@
             app:destination="@id/newPostFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_feedFragment_to_postFragment"
+            app:destination="@id/postFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+
     </fragment>
 
     <fragment
@@ -23,4 +29,8 @@
         android:name="ru.netology.activity.NewPostFragment"
         tools:layout="@layout/fragment_new_post"
         android:label="NewPostFragment" />
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="ru.netology.activity.PostFragment"
+        android:label="PostFragment" />
 </navigation>

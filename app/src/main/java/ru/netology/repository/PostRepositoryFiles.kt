@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import ru.netology.dto.Post
+import ru.netology.dto.getLongPost
+import ru.netology.util.getDateTime
 
 
 class PostRepositoryFiles(private val context: Context) : PostRepository {
@@ -14,6 +16,9 @@ class PostRepositoryFiles(private val context: Context) : PostRepository {
         private val typeToken = TypeToken.getParameterized(List::class.java, Post::class.java).type
         private const val FILE_NAME = "posts.json"
     }
+//    init {
+//        save(getLongPost())
+//    }
     private var nextId: Long = 1
     private var posts: List<Post> = emptyList()
         set(value) {
@@ -75,7 +80,7 @@ class PostRepositoryFiles(private val context: Context) : PostRepository {
                 post.copy(
                     id = nextId++,
                     author = "Me",
-                    published = "Now"
+                    published = getDateTime()
                 )
             ) + posts
         } else {

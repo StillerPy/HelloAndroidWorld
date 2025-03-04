@@ -17,4 +17,5 @@
     <string name="cancel_edit_post_icon">Cancel edit post button</string>
     <string name="chooser_share_post">Share post:</string>
     <string name="video_placeholder">Video Placeholder</string>
+    <string name="add_post_button">Add post button</string>
 </resources>

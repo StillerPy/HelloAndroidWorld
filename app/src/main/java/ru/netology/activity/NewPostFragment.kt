@@ -19,14 +19,15 @@ class NewPostFragment : Fragment() {
     ): View {
         val binding = FragmentNewPostBinding.inflate(layoutInflater, container, false)
         val viewModel: PostListViewModel by activityViewModels()
-        //binding.postContentInput.setText(content)
+        //val originalText = viewModel.edited.value?.content ?: ""
+        val originalText = arguments?.getString("post_content") ?: ""
+        binding.postContentInput.setText(originalText)
         binding.undoButton.setOnClickListener {
-            //binding.postContentInput.setText(content)
+            binding.postContentInput.setText(originalText)
         }
         binding.okButton.setOnClickListener {
             val text = binding.postContentInput.text.toString()
             if (text.isNotBlank()) {
-                val viewModel: PostListViewModel by activityViewModels()
                 viewModel.saveContent(text)
             }
             findNavController().navigateUp()
