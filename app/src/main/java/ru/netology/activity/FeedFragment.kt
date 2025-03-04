@@ -33,7 +33,6 @@ class FeedFragment : Fragment() {
         val binding = FragmentFeedBinding.inflate(layoutInflater, container, false)
         val viewModel: PostListViewModel by activityViewModels()
 
-        //applyInset(binding.root)
         val adapter = PostAdapter(object: OnInteractionListener {
             override fun onLike(post: Post) {
                 viewModel.likeById(post.id)
@@ -69,7 +68,7 @@ class FeedFragment : Fragment() {
             override fun onPostClick(post: Post) {
                 findNavController().navigate(R.id.action_feedFragment_to_postFragment,
                     Bundle().apply {
-                        putString("post_content", post.content)
+                        putLong("post_id", post.id)
                     })
                 println(post)
             }
@@ -89,24 +88,20 @@ class FeedFragment : Fragment() {
         }
         return binding.root
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
-
-    private fun applyInset(main: View) {
-        ViewCompat.setOnApplyWindowInsetsListener(main) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            // Для клавиатуры:
-            val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
-            val isImeVisible = insets.isVisible(WindowInsetsCompat.Type.ime())
-            v.setPadding(
-                v.paddingLeft,
-                systemBars.top,
-                v.paddingRight,
-                if (isImeVisible) imeInsets.bottom else systemBars.bottom
-            )
-            insets
-        }
-    }
+//    private fun applyInset(main: View) {
+//        ViewCompat.setOnApplyWindowInsetsListener(main) { v, insets ->
+//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+//            // Для клавиатуры:
+//            val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
+//            val isImeVisible = insets.isVisible(WindowInsetsCompat.Type.ime())
+//            v.setPadding(
+//                v.paddingLeft,
+//                systemBars.top,
+//                v.paddingRight,
+//                if (isImeVisible) imeInsets.bottom else systemBars.bottom
+//            )
+//            insets
+//        }
+//    }
 }

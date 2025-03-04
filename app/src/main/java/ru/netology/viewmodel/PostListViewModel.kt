@@ -46,6 +46,14 @@ class PostListViewModel(application: Application): AndroidViewModel(application)
         }
         edited.value = emptyPost
     }
+    fun getById(id: Long): Post? {
+        for (post in data.value!!) {
+            if (post.id == id) {
+                return post
+            }
+        }
+        return null
+    }
     fun addPost(post: Post) {
         repository.save(post)
     }

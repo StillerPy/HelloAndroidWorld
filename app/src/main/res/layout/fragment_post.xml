@@ -17,10 +17,6 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:context=".activity.PostFragment">
 
-        <include layout="@layout/post_card"
-            android:id="@+id/post_card"
-            />
-
     </androidx.recyclerview.widget.RecyclerView>
 
 <!--    <TextView-->

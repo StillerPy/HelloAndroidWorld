@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         app:layout_constraintBaseline_toTopOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/barrier"
         tools:context=".activity.FeedFragment" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -25,33 +24,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <ImageView
-        android:id="@+id/cancel_edit_post_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/cancel_edit_post_icon"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/lower_barrier"
-        app:srcCompat="@drawable/baseline_clear_24" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/barrier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="top"
-        />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/edit_post_group"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-
-
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/lower_barrier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="top"
-        />
 </androidx.constraintlayout.widget.ConstraintLayout>
