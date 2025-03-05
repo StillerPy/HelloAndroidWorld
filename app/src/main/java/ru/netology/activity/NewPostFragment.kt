@@ -19,7 +19,6 @@ class NewPostFragment : Fragment() {
     ): View {
         val binding = FragmentNewPostBinding.inflate(layoutInflater, container, false)
         val viewModel: PostListViewModel by activityViewModels()
-        //val originalText = viewModel.edited.value?.content ?: ""
         val originalText = arguments?.getString("post_content") ?: ""
         binding.postContentInput.setText(originalText)
         binding.undoButton.setOnClickListener {

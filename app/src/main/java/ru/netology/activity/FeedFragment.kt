@@ -8,10 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.enableEdgeToEdge
-import androidx.fragment.app.viewModels
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -20,9 +16,8 @@ import ru.netology.adapter.OnInteractionListener
 import ru.netology.adapter.PostAdapter
 import ru.netology.databinding.FragmentFeedBinding
 import ru.netology.dto.Post
-import ru.netology.dto.getLongPost
 import ru.netology.viewmodel.PostListViewModel
-import ru.netology.viewmodel.emptyPost
+
 
 class FeedFragment : Fragment() {
     override fun onCreateView(
