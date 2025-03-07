@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("org.jetbrains.kotlin.kapt")
+
 }
 
 android {
@@ -43,6 +45,8 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.4.0"
     implementation "androidx.navigation:navigation-fragment:2.8.7"
     implementation "androidx.navigation:navigation-ui-ktx:2.8.7"
+    implementation "androidx.room:room-runtime:2.6.1"
+    kapt "androidx.room:room-compiler:2.6.1"
     implementation libs.activity
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
