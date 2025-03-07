@@ -2,6 +2,8 @@ package ru.netology.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import ru.netology.dao.PostDao_Impl
+import ru.netology.db.AppDb_Impl
 import ru.netology.dto.Post
 
 @Entity
@@ -12,9 +14,9 @@ data class PostEntity(
     val published: String,
     val content: String,
     val videoUrl: String?,
-    val likes: Int = 1099,
-    val shared: Int = 999,
-    val views: Int = 12345,
+    val likes: Int,
+    val shared: Int,
+    val views: Int,
     val likedByMe: Boolean,
     val sharedByMe: Boolean
 ) {

@@ -9,6 +9,8 @@ import com.google.android.material.snackbar.Snackbar
 import ru.netology.R
 import ru.netology.databinding.ActivityIntentHandlerBinding
 
+
+// https://github.com/StillerPy/HelloAndroidWorld
 class AppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

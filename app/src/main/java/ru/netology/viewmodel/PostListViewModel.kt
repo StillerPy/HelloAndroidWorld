@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import ru.netology.db.AppDb
 import ru.netology.dto.Post
 import ru.netology.repository.PostRepository
+import ru.netology.repository.PostRepositoryInMemory
 import ru.netology.repository.PostRepositoryRoomImpl
 
 val emptyPost = Post(
@@ -24,6 +25,7 @@ val emptyPost = Post(
 
 class PostListViewModel(application: Application): AndroidViewModel(application) {
     private val repository: PostRepository = PostRepositoryRoomImpl(AppDb.getInstance(application).postDao)
+    //private val repository: PostRepository = PostRepositoryInMemory()
     val data: LiveData<List<Post>> = repository.getAll()
     val edited = MutableLiveData(emptyPost)
     fun likeById(id: Long) {
