@@ -5,6 +5,7 @@ import androidx.lifecycle.map
 import ru.netology.dao.PostDao
 import ru.netology.dto.Post
 import ru.netology.entity.PostEntity
+import ru.netology.util.getDateTime
 
 
 class PostRepositoryRoomImpl(
@@ -14,7 +15,12 @@ class PostRepositoryRoomImpl(
 
     override fun getAll(): LiveData<List<Post>> = dao.getAll().map{list -> list.map{it.toPost()}}
 
-    override fun save(post: Post) = dao.save(PostEntity.fromPost(post))
+    override fun save(post: Post) {
+        if (post.id == 0L) {
+            dao.save(PostEntity.fromPost(post.copy(author = "Me", published = getDateTime())))
+        }
+        dao.save(PostEntity.fromPost(post))
+    }
 
     override fun likeById(id: Long) = dao.likeById(id)
 
