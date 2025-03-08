@@ -38,10 +38,9 @@ class NewPostFragment : Fragment() {
         }
         requireActivity()
             .onBackPressedDispatcher
-            .addCallback(this,
+            .addCallback(viewLifecycleOwner,
                 object: OnBackPressedCallback(true) {
                     override fun handleOnBackPressed() {
-                        println("Back!")
                         val text = binding.postContentInput.text.toString()
                         if (text.isNotBlank()) {
                             draftStorage.put(text)

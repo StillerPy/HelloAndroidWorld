@@ -2,6 +2,7 @@ package ru.netology.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
+import ru.netology.R
 import ru.netology.dao.PostDao
 import ru.netology.dto.Post
 import ru.netology.entity.PostEntity
@@ -17,9 +18,11 @@ class PostRepositoryRoomImpl(
 
     override fun save(post: Post) {
         if (post.id == 0L) {
-            dao.save(PostEntity.fromPost(post.copy(author = "Me", published = getDateTime())))
+            dao.save(PostEntity.fromPost(post.copy(author = "Me",
+                published = getDateTime())))
+        } else {
+            dao.save(PostEntity.fromPost(post))
         }
-        dao.save(PostEntity.fromPost(post))
     }
 
     override fun likeById(id: Long) = dao.likeById(id)

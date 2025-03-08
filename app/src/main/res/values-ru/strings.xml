@@ -17,4 +17,8 @@
     <string name="edit_post_icon">Иконка изменения поста</string>
     <string name="cancel_edit_post_icon">Кнопка отмены изменения поста</string>
     <string name="chooser_share_post">Поделиться постом:</string>
+    <string name="video_placeholder">Картинка-заглушка для видео</string>
+    <string name="add_post_button">Кнопка добавления поста</string>
+    <string name="ok_button">Кнопка "ок"</string>
+    <string name="undo_button">Кнопка отмены</string>
 </resources>
