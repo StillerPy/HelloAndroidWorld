@@ -64,12 +64,20 @@ class PostListViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun shareById(id: Long) {
-        //TODO
+        //FIXME
         println("Share: $id")
     }
 
     fun removeById(id: Long) {
-        thread { repository.removeById(id) }
+        val feedModel = data.value ?: return
+        val posts = feedModel.posts.filter {
+            it.id != id
+        }
+        _data.postValue(FeedModel(posts=posts))
+        thread {
+            repository.removeById(id)
+            //_postCreated.postValue(Unit)
+        }
     }
 
     fun edit(post: Post) {
@@ -82,7 +90,6 @@ class PostListViewModel(application: Application) : AndroidViewModel(application
                 repository.save(editPost.copy(content = content))
                 _postCreated.postValue(Unit)
             }
-            //edited.postValue(Unit)
         }
     }
 

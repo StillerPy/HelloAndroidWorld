@@ -20,6 +20,7 @@ import ru.netology.dto.Post
 import ru.netology.viewmodel.PostListViewModel
 
 
+//https://github.com/StillerPy/HelloAndroidWorld
 class FeedFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -72,6 +72,10 @@ class PostFragment: Fragment() {
             adapter.submitList(feedModel.posts.filter { it.id == postId })
 
         }
+        viewModel.postCreated.observe(viewLifecycleOwner) {
+            viewModel.load()
+            findNavController().navigateUp()
+        }
         return binding.root
     }
 }

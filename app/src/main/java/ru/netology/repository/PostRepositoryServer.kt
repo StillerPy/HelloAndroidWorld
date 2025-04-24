@@ -53,11 +53,10 @@ class PostRepositoryServer: PostRepository {
     override fun removeById(id: Long) {
         val request: Request = Request.Builder()
             .delete()
-            .url("${BASE_URL}/api/slow/posts/$id")
+            .url("${BASE_URL}api/slow/posts/$id")
             .build()
         client.newCall(request)
             .execute()
-            .close()
     }
 
     override fun save(post: Post): Post {
@@ -68,5 +67,9 @@ class PostRepositoryServer: PostRepository {
         val response = client.newCall(request).execute()
         val responseString = response.body?.string()
         return gson.fromJson(responseString, Post::class.java)
+    }
+
+    override fun getAllAsync(callback: PostRepository.GetAllCallback) {
+        //TODO("Not yet implemented")
     }
 }
