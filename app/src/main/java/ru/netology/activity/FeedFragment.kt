@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -25,6 +26,7 @@ class FeedFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        println("Start")
         val binding = FragmentFeedBinding.inflate(layoutInflater, container, false)
         val viewModel: PostListViewModel by activityViewModels()
 
@@ -65,38 +67,37 @@ class FeedFragment : Fragment() {
                     Bundle().apply {
                         putLong("post_id", post.id)
                     })
-                println(post)
             }
         })
         binding.main.adapter = adapter
-        viewModel.data.observe(viewLifecycleOwner) { posts ->
-            val isNewPost = (posts.size > adapter.currentList.size)
-            adapter.submitList(posts) {
+        println(viewModel.data.value)
+        viewModel.load()
+        viewModel.data.observe(viewLifecycleOwner) { feedModel ->
+            binding.errorGroup.isVisible = feedModel.error
+            binding.loadingProgressBar.isVisible = feedModel.loading
+            binding.empty.isVisible = feedModel.empty
+            val isNewPost = (feedModel.posts.size > adapter.currentList.size)
+            adapter.submitList(feedModel.posts) {
                 if (isNewPost) {
                     binding.main.smoothScrollToPosition(0)
                 }
             }
-
         }
+        viewModel.postCreated.observe(viewLifecycleOwner) {
+            viewModel.load()
+            findNavController().navigateUp()
+        }
+//        viewModel.changed.observe(viewLifecycleOwner) {
+//            viewModel.load()
+//        }
         binding.addPostButton.setOnClickListener {
             findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
         }
+        binding.retryButton.setOnClickListener {
+            viewModel.load()
+        }
+
         return binding.root
     }
 
-//    private fun applyInset(main: View) {
-//        ViewCompat.setOnApplyWindowInsetsListener(main) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            // Для клавиатуры:
-//            val imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime())
-//            val isImeVisible = insets.isVisible(WindowInsetsCompat.Type.ime())
-//            v.setPadding(
-//                v.paddingLeft,
-//                systemBars.top,
-//                v.paddingRight,
-//                if (isImeVisible) imeInsets.bottom else systemBars.bottom
-//            )
-//            insets
-//        }
-//    }
 }

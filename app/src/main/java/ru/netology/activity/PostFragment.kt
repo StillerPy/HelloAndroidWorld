@@ -68,8 +68,8 @@ class PostFragment: Fragment() {
         binding.main.adapter = adapter
         adapter.submitList(listOf(post))
         println(post)
-        viewModel.data.observe(viewLifecycleOwner) { posts ->
-            adapter.submitList(posts.filter { it.id == postId })
+        viewModel.data.observe(viewLifecycleOwner) { feedModel ->
+            adapter.submitList(feedModel.posts.filter { it.id == postId })
 
         }
         return binding.root

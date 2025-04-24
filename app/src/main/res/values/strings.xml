@@ -20,4 +20,7 @@
     <string name="add_post_button">Add post button</string>
     <string name="ok_button">OK button</string>
     <string name="undo_button">Undo button\n</string>
+    <string name="empty">Empty</string>
+    <string name="retry">Retry</string>
+    <string name="retry_title">Something went wrong</string>
 </resources>
