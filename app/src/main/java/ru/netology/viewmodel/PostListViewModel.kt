@@ -8,7 +8,7 @@ import ru.netology.dto.Post
 import ru.netology.model.FeedModel
 import ru.netology.repository.PostRepository
 import ru.netology.repository.PostRepositoryServer
-import kotlin.concurrent.thread
+
 
 val emptyPost = Post(
     0L,
