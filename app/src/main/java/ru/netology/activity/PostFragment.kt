@@ -70,7 +70,6 @@ class PostFragment: Fragment() {
         println(post)
         viewModel.data.observe(viewLifecycleOwner) { feedModel ->
             adapter.submitList(feedModel.posts.filter { it.id == postId })
-
         }
         viewModel.postCreated.observe(viewLifecycleOwner) {
             viewModel.load()
