@@ -5,6 +5,7 @@ import ru.netology.util.getDateTime
 data class Post(
     val id: Long = -1,
     val author: String = "=== Post author ===",
+    val authorAvatar: String = "",
     val published: String = "=== Publishing date ===",
     val content: String = "=== Content text ===",
     val videoUrl: String? = null,
@@ -12,5 +13,6 @@ data class Post(
     val shared: Int = 999,
     val views: Int = 12345,
     val likedByMe: Boolean = false,
-    val sharedByMe: Boolean = false
+    val sharedByMe: Boolean = false,
+    val attachment: Attachment? = null
 )

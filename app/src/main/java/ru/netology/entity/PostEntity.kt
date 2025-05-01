@@ -11,6 +11,7 @@ data class PostEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val author: String,
+    val authorAvatar: String,
     val published: String,
     val content: String,
     val videoUrl: String?,
@@ -24,6 +25,7 @@ data class PostEntity(
         return Post (
             id,
             author,
+            authorAvatar,
             published,
             content,
             videoUrl,
@@ -39,6 +41,7 @@ data class PostEntity(
             return PostEntity(
                 post.id,
                 post.author,
+                post.authorAvatar,
                 post.published,
                 post.content,
                 post.videoUrl,

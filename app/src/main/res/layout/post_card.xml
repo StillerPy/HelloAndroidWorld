@@ -18,7 +18,7 @@
         android:contentDescription="@string/user_avatar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:srcCompat="@drawable/avatar_placeholder" />
 
     <TextView
         android:id="@+id/author"
@@ -76,13 +76,14 @@
 
 
     <ImageView
-        android:id="@+id/placeholderImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/attachmentImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/video_placeholder"
         android:scaleType="centerCrop"
         android:src="@drawable/video_placeholder"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/content" />
@@ -94,7 +95,7 @@ android:id="@+id/footer_barrier"
 android:layout_height="wrap_content"
 android:layout_width="wrap_content"
 app:barrierDirection="bottom"
-app:layout_constraintTop_toBottomOf="@+id/placeholderImage"
+app:layout_constraintTop_toBottomOf="@+id/attachmentImage"
 app:constraint_referenced_ids="content" />
 
 <com.google.android.material.button.MaterialButton
