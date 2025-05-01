@@ -1,11 +1,17 @@
 package ru.netology.adapter
 
+import android.app.Activity
 import android.view.View
 import androidx.appcompat.widget.PopupMenu
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ru.netology.R
+import ru.netology.activity.PostFragment
+import ru.netology.activity.load
 import ru.netology.databinding.PostCardBinding
 import ru.netology.dto.Post
+import ru.netology.repository.PostRepositoryServer
 import ru.netology.view.PostUiModel
 
 class PostViewHolder(
@@ -14,6 +20,7 @@ class PostViewHolder(
 ): RecyclerView.ViewHolder(binding.root) {
     fun bind(post: Post) {
         val postModel = PostUiModel.fromPost(post)
+        println(post.attachment)
         with(binding) {
             binding.likeButton.isChecked = post.likedByMe
             author.text = postModel.author
@@ -25,14 +32,29 @@ class PostViewHolder(
             binding.root.setOnClickListener {
                 listener.onPostClick(post)
             }
-            if (post.videoUrl == null) {
-                binding.placeholderImage.visibility = View.GONE
-            } else {
-                binding.placeholderImage.visibility = View.VISIBLE
-                binding.placeholderImage.setOnClickListener {
+            if (post.attachment != null) {
+                if (post.attachment.type == "IMAGE") {
+                    binding.attachmentImage.visibility = View.VISIBLE
+                    val url = "${PostRepositoryServer.BASE_URL}images/${post.attachment.url}"
+                    Glide.with(binding.attachmentImage)
+                        .load(url)
+                        .placeholder(R.drawable.video_placeholder)
+                        .timeout(10_000)
+                        .into(binding.attachmentImage)
+                    binding.attachmentImage.contentDescription = post.attachment.description
+                }
+            } else if (post.videoUrl != null) {
+                binding.attachmentImage.setOnClickListener {
+                    binding.attachmentImage.visibility = View.VISIBLE
                     listener.onVideoClick(post)
                 }
             }
+
+            if (post.authorAvatar.isNotEmpty()) {
+                val url = "${PostRepositoryServer.BASE_URL}avatars/${post.authorAvatar}"
+                binding.avatar.load(url)
+            }
+
             menuButton.setOnClickListener {
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.post_menu)

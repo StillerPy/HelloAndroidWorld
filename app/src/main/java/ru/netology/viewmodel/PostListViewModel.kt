@@ -15,6 +15,7 @@ val emptyPost = Post(
     "",
     "",
     "",
+    "",
     null,
     0,
     0,
@@ -29,13 +30,10 @@ class PostListViewModel(application: Application) : AndroidViewModel(application
     private val _data = MutableLiveData(FeedModel())
     val data: LiveData<FeedModel>
         get() = _data
-    private val _postCreated = SingleLiveEvent<Unit>()
-    val postCreated: LiveData<Unit>
-        get() = _postCreated
+    private val _needsRefreshing = SingleLiveEvent<Unit>()
+    val needsRefreshing: LiveData<Unit>
+        get() = _needsRefreshing
 
-    //    private val _changed = SingleLiveEvent<Unit>()
-//    val changed: LiveData<Unit>
-//        get() = _changed
     val edited = MutableLiveData(emptyPost)
 
     fun load() {
@@ -45,6 +43,7 @@ class PostListViewModel(application: Application) : AndroidViewModel(application
             object : PostRepository.MyCallback<List<Post>> {
                 override fun onSuccess(data: List<Post>) {
                     _data.postValue(FeedModel(posts = data, empty = data.isEmpty()))
+
                 }
 
                 override fun onError(error: Exception) {
@@ -53,16 +52,6 @@ class PostListViewModel(application: Application) : AndroidViewModel(application
 
             }
         )
-//        thread {
-//            _data.postValue(FeedModel(loading = true))
-//            val result = try {
-//                val posts = repository.getAll()
-//                FeedModel(posts = posts, empty = posts.isEmpty())
-//            } catch (e: Exception) {
-//                FeedModel(error = true)
-//            }
-//            _data.postValue(result)
-//        }
     }
 
     fun likeById(id: Long) {
@@ -70,7 +59,7 @@ class PostListViewModel(application: Application) : AndroidViewModel(application
         _data.postValue(FeedModel(loading = true))
         val callback = object : PostRepository.MyCallback<Unit> {
             override fun onSuccess(data: Unit) {
-                _postCreated.postValue(Unit)
+                _needsRefreshing.postValue(Unit)
             }
             override fun onError(error: Exception) {
                 _data.postValue(FeedModel(error = true))
@@ -81,7 +70,6 @@ class PostListViewModel(application: Application) : AndroidViewModel(application
         } else {
             repository.likeByIdAsync(id, callback)
         }
-        _postCreated.postValue(Unit)
     }
 
     fun shareById(id: Long) {
@@ -103,10 +91,6 @@ class PostListViewModel(application: Application) : AndroidViewModel(application
             }
         }
         repository.removeByIdAsync(id, callback)
-//        thread {
-//            repository.removeById(id)
-//            //_postCreated.postValue(Unit)
-//        }
     }
 
     fun edit(post: Post) {
@@ -117,19 +101,13 @@ class PostListViewModel(application: Application) : AndroidViewModel(application
         val post = edited.value ?: return
         val callback = object: PostRepository.MyCallback<Post> {
             override fun onSuccess(data: Post) {
-                _postCreated.postValue(Unit)
+                _needsRefreshing.postValue(Unit)
             }
             override fun onError(error: Exception) {
                 _data.postValue(FeedModel(error = true))
             }
         }
         repository.saveAsync(post.copy(content = content), callback)
-//        edited.value?.let { editPost ->
-//            thread {
-//                repository.save(editPost.copy(content = content))
-//                _postCreated.postValue(Unit)
-//            }
-//        }
     }
 
     fun getById(id: Long): Post? {

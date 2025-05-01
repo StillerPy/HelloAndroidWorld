@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import ru.netology.R
 import ru.netology.adapter.OnInteractionListener
 import ru.netology.adapter.PostAdapter
@@ -27,7 +28,6 @@ class FeedFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        println("Start")
         val binding = FragmentFeedBinding.inflate(layoutInflater, container, false)
         val viewModel: PostListViewModel by activityViewModels()
 
@@ -55,14 +55,12 @@ class FeedFragment : Fragment() {
             override fun onRemove(post: Post) {
                 viewModel.removeById(post.id)
             }
-
             override fun onVideoClick(post: Post) {
                 val videoIntent = Intent(Intent.ACTION_VIEW).apply {
                     setData(Uri.parse(post.videoUrl))
                 }
                 startActivity(videoIntent)
             }
-
             override fun onPostClick(post: Post) {
                 findNavController().navigate(R.id.action_feedFragment_to_postFragment,
                     Bundle().apply {
@@ -70,8 +68,8 @@ class FeedFragment : Fragment() {
                     })
             }
         })
+
         binding.main.adapter = adapter
-        println(viewModel.data.value)
         viewModel.load()
         viewModel.data.observe(viewLifecycleOwner) { feedModel ->
             binding.errorGroup.isVisible = feedModel.error
@@ -84,21 +82,16 @@ class FeedFragment : Fragment() {
                 }
             }
         }
-        viewModel.postCreated.observe(viewLifecycleOwner) {
+        viewModel.needsRefreshing.observe(viewLifecycleOwner) {
             viewModel.load()
             findNavController().navigateUp()
         }
-//        viewModel.changed.observe(viewLifecycleOwner) {
-//            viewModel.load()
-//        }
         binding.addPostButton.setOnClickListener {
             findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
         }
         binding.retryButton.setOnClickListener {
             viewModel.load()
         }
-
         return binding.root
     }
-
 }

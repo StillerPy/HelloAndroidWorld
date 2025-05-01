@@ -71,7 +71,7 @@ class PostFragment: Fragment() {
         viewModel.data.observe(viewLifecycleOwner) { feedModel ->
             adapter.submitList(feedModel.posts.filter { it.id == postId })
         }
-        viewModel.postCreated.observe(viewLifecycleOwner) {
+        viewModel.needsRefreshing.observe(viewLifecycleOwner) {
             viewModel.load()
             findNavController().navigateUp()
         }
