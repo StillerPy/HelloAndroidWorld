@@ -6,9 +6,11 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.netology.BuildConfig
 import ru.netology.R
 import ru.netology.activity.PostFragment
 import ru.netology.activity.load
+import ru.netology.api.PostsApi
 import ru.netology.databinding.PostCardBinding
 import ru.netology.dto.Post
 import ru.netology.repository.PostRepositoryServer
@@ -17,7 +19,9 @@ import ru.netology.view.PostUiModel
 class PostViewHolder(
     private val binding: PostCardBinding,
     private val listener: OnInteractionListener
+
 ): RecyclerView.ViewHolder(binding.root) {
+    val URL: String = BuildConfig.BASE_URL
     fun bind(post: Post) {
         val postModel = PostUiModel.fromPost(post)
         println(post.attachment)
@@ -35,7 +39,7 @@ class PostViewHolder(
             if (post.attachment != null) {
                 if (post.attachment.type == "IMAGE") {
                     binding.attachmentImage.visibility = View.VISIBLE
-                    val url = "${PostRepositoryServer.BASE_URL}images/${post.attachment.url}"
+                    val url = "${URL}/images/${post.attachment.url}"
                     Glide.with(binding.attachmentImage)
                         .load(url)
                         .placeholder(R.drawable.video_placeholder)
@@ -51,7 +55,7 @@ class PostViewHolder(
             }
 
             if (post.authorAvatar.isNotEmpty()) {
-                val url = "${PostRepositoryServer.BASE_URL}avatars/${post.authorAvatar}"
+                val url = "${URL}/avatars/${post.authorAvatar}"
                 binding.avatar.load(url)
             }
 

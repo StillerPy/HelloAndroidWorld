@@ -23,5 +23,5 @@
     <string name="undo_button">Кнопка отмены</string>
     <string name="empty">Нет постов</string>
     <string name="retry">Повторить попытку</string>
-    <string name="retry_title">Что-то пошло не так</string>
+    <string name="retry_title">Что-то пошло не так. Код ошибки </string>
 </resources>

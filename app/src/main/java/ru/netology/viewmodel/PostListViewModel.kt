@@ -36,9 +36,9 @@ class PostListViewModel(application: Application) : AndroidViewModel(application
 
     val edited = MutableLiveData(emptyPost)
 
+
     fun load() {
         _data.value = FeedModel(loading = true)
-
         repository.getAllAsync(
             object : PostRepository.MyCallback<List<Post>> {
                 override fun onSuccess(data: List<Post>) {
@@ -47,7 +47,7 @@ class PostListViewModel(application: Application) : AndroidViewModel(application
                 }
 
                 override fun onError(error: Exception) {
-                    _data.postValue(FeedModel(error = true))
+                    _data.postValue(FeedModel(errorMessage = error.message))
                 }
 
             }
@@ -57,12 +57,12 @@ class PostListViewModel(application: Application) : AndroidViewModel(application
     fun likeById(id: Long) {
         val post = getById(id) ?: return
         _data.postValue(FeedModel(loading = true))
-        val callback = object : PostRepository.MyCallback<Unit> {
-            override fun onSuccess(data: Unit) {
+        val callback = object : PostRepository.MyCallback<Post> {
+            override fun onSuccess(data: Post) {
                 _needsRefreshing.postValue(Unit)
             }
             override fun onError(error: Exception) {
-                _data.postValue(FeedModel(error = true))
+                _data.postValue(FeedModel(errorMessage = error.message))
             }
         }
         if (post.likedByMe) {
@@ -87,7 +87,7 @@ class PostListViewModel(application: Application) : AndroidViewModel(application
             override fun onSuccess(data: Unit) {}
 
             override fun onError(error: Exception) {
-                _data.postValue(FeedModel(error = true))
+                _data.postValue(FeedModel(errorMessage = error.message))
             }
         }
         repository.removeByIdAsync(id, callback)
@@ -104,7 +104,7 @@ class PostListViewModel(application: Application) : AndroidViewModel(application
                 _needsRefreshing.postValue(Unit)
             }
             override fun onError(error: Exception) {
-                _data.postValue(FeedModel(error = true))
+                _data.postValue(FeedModel(errorMessage = error.message))
             }
         }
         repository.saveAsync(post.copy(content = content), callback)

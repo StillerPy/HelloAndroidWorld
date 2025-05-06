@@ -5,7 +5,7 @@ plugins {
 //    id("com.android.application")
     id("com.google.gms.google-services")
 }
-
+android.buildFeatures.buildConfig true
 android {
     namespace 'ru.netology'
     compileSdk 35
@@ -24,9 +24,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             manifestPlaceholders.usesCleartextTraffic = false
+            buildConfigField "String", "BASE_URL", '"http://nmedia.herokuapp.com"'
         }
         debug {
             manifestPlaceholders.usesCleartextTraffic = true
+            buildConfigField "String", "BASE_URL", '"http://10.0.2.2:9999"'
         }
 
     }
@@ -47,8 +49,11 @@ dependencies {
     implementation libs.material
     implementation libs.androidx.activity
     implementation libs.androidx.constraintlayout
-    implementation "com.google.code.gson:gson:2.12.1"
-    implementation "androidx.recyclerview:recyclerview:1.4.0"
+    implementation libs.gson
+    implementation libs.androidx.recyclerview
+    implementation "com.squareup.retrofit2:retrofit:2.11.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.11.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.12.0"
     implementation "androidx.navigation:navigation-fragment:2.8.7"
     implementation "androidx.navigation:navigation-ui-ktx:2.8.7"
     implementation "androidx.room:room-runtime:2.6.1"

@@ -1,5 +1,6 @@
 package ru.netology.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.Intent.ACTION_SEND
 import android.content.Intent.EXTRA_TEXT
@@ -23,6 +24,7 @@ import ru.netology.viewmodel.PostListViewModel
 
 //https://github.com/StillerPy/HelloAndroidWorld
 class FeedFragment : Fragment() {
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -72,7 +74,10 @@ class FeedFragment : Fragment() {
         binding.main.adapter = adapter
         viewModel.load()
         viewModel.data.observe(viewLifecycleOwner) { feedModel ->
-            binding.errorGroup.isVisible = feedModel.error
+            binding.errorGroup.isVisible = feedModel.errorMessage != null
+            if (feedModel.errorMessage != null) {
+                binding.retryTitle.text = resources.getString(R.string.retry_title) + " " + feedModel.errorMessage
+            }
             binding.loadingProgressBar.isVisible = feedModel.loading
             binding.empty.isVisible = feedModel.empty
             val isNewPost = (feedModel.posts.size > adapter.currentList.size)
